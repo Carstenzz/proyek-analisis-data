@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 #Mengambil data
-main_data = pd.read_csv('main_data.csv')
+main_data = pd.read_csv('dashboard/main_data.csv')
 
 #mengubah objek menjadi datetime
 main_data['dteday'] = pd.to_datetime(main_data['dteday'])
@@ -40,16 +40,6 @@ st.title("")
 
 
 st.subheader('Average bike uses')
- 
-
- 
-# with col1:
-#     total_orders = daily_orders_df.order_count.sum()
-#     st.metric("Total orders", value=total_orders)
- 
-# with col2:
-#     total_revenue = format_currency(daily_orders_df.revenue.sum(), "AUD", locale='es_CO') 
-#     st.metric("Total Revenue", value=total_revenue)
  
 
 mean = main_df.groupby('hr').agg({"casual":"mean", "registered":"mean", "cnt":"mean"}).reset_index()
