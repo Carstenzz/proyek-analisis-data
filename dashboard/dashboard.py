@@ -5,7 +5,7 @@ import seaborn as sns
 
 #Mengambil data
 try:
-    main_data = pd.read_csv('dasboard/main_data.csv')   
+    main_data = pd.read_csv('dashboard/main_data.csv')   
 except:
     main_data = pd.read_csv('main_data.csv') 
 
