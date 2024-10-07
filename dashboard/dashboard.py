@@ -4,7 +4,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 #Mengambil data
-main_data = pd.read_csv('dashboard/main_data.csv')
+try:
+    main_data = pd.read_csv('dasboard/main_data.csv')   
+except:
+    main_data = pd.read_csv('main_data.csv') 
 
 #mengubah objek menjadi datetime
 main_data['dteday'] = pd.to_datetime(main_data['dteday'])
@@ -26,6 +29,7 @@ with st.sidebar:
 
 main_df = main_data[(main_data["dteday"] >= str(start_date)) & 
                 (main_data["dteday"] <= str(end_date))]
+
 
 
 
@@ -53,7 +57,24 @@ ax.grid(True)
  
 st.pyplot(fig)
 
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.subheader("Casual user")
+    st.text("max : " + str(round(main_df.groupby('hr')['casual'].mean().max(),2)))
+    st.text("min : " + str(round(main_df.groupby('hr')['casual'].mean().min(),2)))
+    st.text("avg : " + str(round(main_df.groupby('hr')['casual'].mean().mean(),2)))
+
+with col2:
+    st.subheader("Registered user")
+    st.text("max : " + str(round(main_df.groupby('hr')['registered'].mean().max(),2)))
+    st.text("min : " + str(round(main_df.groupby('hr')['registered'].mean().min(),2)))
+    st.text("avg : " + str(round(main_df.groupby('hr')['registered'].mean().mean(),2)))
+
+with col3:
+    st.subheader("Total user")
+    st.text("max : " + str(round(main_df.groupby('hr')['cnt'].mean().max(),2)))
+    st.text("min : " + str(round(main_df.groupby('hr')['cnt'].mean().min(),2)))
+    st.text("avg : " + str(round(main_df.groupby('hr')['cnt'].mean().mean(),2)))
 
 
 
@@ -70,3 +91,24 @@ ax.legend()
 ax.grid(True)
  
 st.pyplot(fig)
+
+col1, col2 = st.columns(2)
+with col1:
+    st.subheader("Spring season")
+    st.text("max : " + str(round(main_df[main_df['season'] == 1]['cnt'].max(),2)))
+    st.text("avg : " + str(round(main_df[main_df['season'] == 1]['cnt'].mean(),2)))
+
+    st.subheader("")
+    st.subheader("Fall season")
+    st.text("max : " + str(round(main_df[main_df['season'] == 3]['cnt'].max(),2)))
+    st.text("avg : " + str(round(main_df[main_df['season'] == 3]['cnt'].mean(),2)))
+
+with col2:
+    st.subheader("Summer season")
+    st.text("max : " + str(round(main_df[main_df['season'] == 2]['cnt'].max(),2)))
+    st.text("avg : " + str(round(main_df[main_df['season'] == 2]['cnt'].mean(),2)))
+
+    st.subheader("")
+    st.subheader("Winter season")
+    st.text("max : " + str(round(main_df[main_df['season'] == 4]['cnt'].max(),2)))
+    st.text("avg : " + str(round(main_df[main_df['season'] == 4]['cnt'].mean(),2)))
